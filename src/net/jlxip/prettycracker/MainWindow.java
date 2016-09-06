@@ -401,7 +401,7 @@ public class MainWindow extends JFrame {
 						results = null;
 					}
 					
-					// CHANGE THE POSITION OF THE WINDOW
+					// CHANGE THE POSITION OF THE WINDOW. ONLY ONCE!!!
 					int first_window_x = (Toolkit.getDefaultToolkit().getScreenSize().width - WIDTH) / 2;
 					if(window_x == first_window_x) {
 						window_x = (getLocation().x - 16 - (480 / 2));

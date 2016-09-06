@@ -358,7 +358,8 @@ public class MainWindow extends JFrame {
 					int crack_max = Integer.parseInt(max.getText());
 					
 					if(crack_max < crack_min) {
-						JOptionPane.showMessageDialog(me, "The max. value is smaller than the min. value.");
+						max.setText(min.getText());
+						JOptionPane.showMessageDialog(me, "The max. value is smaller than the min. value. Fixed. Hit CRACK again.");
 						return;
 					}
 					
@@ -366,7 +367,8 @@ public class MainWindow extends JFrame {
 					if(cbprefix.isSelected()) {
 						crack_prefix = prefix.getText();
 						if(crack_min <= crack_prefix.length()) {
-							JOptionPane.showMessageDialog(me, "The min. value is smaller than or equals to the size of the prefix.");
+							min.setText(String.valueOf(crack_prefix.length() + 1));
+							JOptionPane.showMessageDialog(me, "The min. value is smaller than or equals to the size of the prefix. Fixed. Hit CRACK again.");
 							return;
 						}
 					}
@@ -374,7 +376,13 @@ public class MainWindow extends JFrame {
 					String crack_suffix = "";
 					if(cbsuffix.isSelected()) {
 						crack_suffix = suffix.getText();
+						if(crack_min <= crack_suffix.length()) {
+							min.setText(String.valueOf(crack_suffix.length() + 1));
+							JOptionPane.showMessageDialog(me, "The min. value is smaller than or equals to the size of the suffix. Fixed. Hit CRACK again.");
+							return;
+						}
 						if(crack_min <= crack_prefix.length() + crack_suffix.length()) {
+							min.setText(String.valueOf(crack_prefix.length() + crack_suffix.length() + 1));
 							JOptionPane.showMessageDialog(me, "The min. value is smaller than or equals to the size of the prefix and the sufix.");
 							return;
 						}
@@ -394,8 +402,11 @@ public class MainWindow extends JFrame {
 					}
 					
 					// CHANGE THE POSITION OF THE WINDOW
-					window_x = (getLocation().x - 16 - (480 / 2));
-					setLocation(new Point(window_x, window_y));
+					int first_window_x = (Toolkit.getDefaultToolkit().getScreenSize().width - WIDTH) / 2;
+					if(window_x == first_window_x) {
+						window_x = (getLocation().x - 16 - (480 / 2));
+						setLocation(new Point(window_x, window_y));
+					}
 					
 					crack.setText("STOP");
 					
